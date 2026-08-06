@@ -13773,7 +13773,14 @@ string CompilerMSL::to_struct_member(const SPIRType &type, uint32_t member_type_
 		}
 
 		if (array_stride != native_stride)
-			decl_type = join("spvPaddedArrayElement<", decl_type, ", ", array_stride, ">");
+		{
+			// If the struct's MSL size already equals the array stride, no padding is needed.
+			// Emitting spvPaddedArrayElement here would create a zero-length padding array,
+			// which is invalid in C++/MSL.
+			uint32_t struct_size = get_declared_struct_size_msl(get<SPIRType>(physical_type.self));
+			if (array_stride > struct_size)
+				decl_type = join("spvPaddedArrayElement<", decl_type, ", ", array_stride, ">");
+		}
 	}
 
 	const char *overlapping_binding_tag =
