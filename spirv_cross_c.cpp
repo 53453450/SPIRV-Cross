@@ -188,6 +188,7 @@ struct spvc_resources_s : ScratchMemoryAllocation
 {
 	spvc_context context = nullptr;
 	SmallVector<spvc_reflected_resource> uniform_buffers;
+	SmallVector<spvc_reflected_resource> uniform_constants;
 	SmallVector<spvc_reflected_resource> storage_buffers;
 	SmallVector<spvc_reflected_resource> stage_inputs;
 	SmallVector<spvc_reflected_resource> stage_outputs;
@@ -1852,6 +1853,8 @@ bool spvc_resources_s::copy_resources(const ShaderResources &resources)
 {
 	if (!copy_resources(uniform_buffers, resources.uniform_buffers))
 		return false;
+	if (!copy_resources(uniform_constants, resources.uniform_constants))
+		return false;
 	if (!copy_resources(storage_buffers, resources.storage_buffers))
 		return false;
 	if (!copy_resources(stage_inputs, resources.stage_inputs))
@@ -1981,6 +1984,10 @@ spvc_result spvc_resources_get_resource_list_for_type(spvc_resources resources, 
 	{
 	case SPVC_RESOURCE_TYPE_UNIFORM_BUFFER:
 		list = &resources->uniform_buffers;
+		break;
+
+	case SPVC_RESOURCE_TYPE_UNIFORM_CONSTANT:
+		list = &resources->uniform_constants;
 		break;
 
 	case SPVC_RESOURCE_TYPE_STORAGE_BUFFER:

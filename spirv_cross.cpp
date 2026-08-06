@@ -1225,6 +1225,7 @@ ShaderResources Compiler::get_shader_resources(const unordered_set<VariableID> *
 			}
 			else
 			{
+				res.uniform_constants.push_back({ var.self, var.basetype, type.self, get_name(var.self) });
 				res.gl_plain_uniforms.push_back({ var.self, var.basetype, type.self, get_name(var.self) });
 			}
 		}

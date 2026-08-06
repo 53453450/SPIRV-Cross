@@ -96,26 +96,28 @@ enum ResourceType
 {
 	ResourceTypeUnknown = 0,
 	ResourceTypeUniformBuffer = 1,
-	ResourceTypeStorageBuffer = 2,
-	ResourceTypeStageInput = 3,
-	ResourceTypeStageOutput = 4,
-	ResourceTypeSubpassInput = 5,
-	ResourceTypeStorageImage = 6,
-	ResourceTypeSampledImage = 7,
-	ResourceTypeAtomicCounter = 8,
-	ResourceTypePushConstant = 9,
-	ResourceTypeSeparateImage = 10,
-	ResourceTypeSeparateSamplers = 11,
-	ResourceTypeAccelerationStructure = 12,
-	ResourceTypeRayQuery = 13,
-	ResourceTypeShaderRecordBuffer = 14,
-	ResourceTypeGLPlainUniform = 15,
-	ResourceTypeTensor = 16
+	ResourceTypeUniformConstant = 2,
+	ResourceTypeStorageBuffer = 3,
+	ResourceTypeStageInput = 4,
+	ResourceTypeStageOutput = 5,
+	ResourceTypeSubpassInput = 6,
+	ResourceTypeStorageImage = 7,
+	ResourceTypeSampledImage = 8,
+	ResourceTypeAtomicCounter = 9,
+	ResourceTypePushConstant = 10,
+	ResourceTypeSeparateImage = 11,
+	ResourceTypeSeparateSamplers = 12,
+	ResourceTypeAccelerationStructure = 13,
+	ResourceTypeRayQuery = 14,
+	ResourceTypeShaderRecordBuffer = 15,
+	ResourceTypeGLPlainUniform = 16,
+	ResourceTypeTensor = 17
 };
 
 struct ShaderResources
 {
 	SmallVector<Resource> uniform_buffers;
+	SmallVector<Resource> uniform_constants;
 	SmallVector<Resource> storage_buffers;
 	SmallVector<Resource> stage_inputs;
 	SmallVector<Resource> stage_outputs;
